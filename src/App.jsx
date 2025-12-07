@@ -1,34 +1,84 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import DynamicForm from './components/DynamicForm/DynamicForm'
 import './App.css'
 
+const dummyQuestions = [
+  {
+    id: 'q1',
+    question: 'What is your name?',
+    // No mcq attribute -> Text input
+  },
+  {
+    id: 'q2',
+    question: 'Which of the following is a Javascript framework?',
+    mcq: ['Laravel', 'React', 'Django', 'Flask']
+  },
+  {
+    id: 'q3',
+    question: 'Describe your coding experience.',
+    // No mcq attribute -> Text input
+  },
+  {
+    id: 'q4',
+    question: 'What is your preferred state management tool?',
+    mcq: ['Redux', 'Zustand', 'Context API', 'Recoil']
+  }
+];
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [submittedData, setSubmittedData] = useState(null);
+
+  const handleFormSubmit = (data) => {
+    console.log('Form Submitted:', data);
+    setSubmittedData(data);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div style={{ minHeight: '100vh', padding: '2rem', background: '#f0f2f5' }}>
+      <h1 style={{ textAlign: 'center', marginBottom: '2rem', color: '#333' }}>
+        Dynamic Form Demo
+      </h1>
+      
+      {!submittedData ? (
+        <DynamicForm 
+          questions={dummyQuestions} 
+          onSubmit={handleFormSubmit} 
+        />
+      ) : (
+        <div style={{ 
+          maxWidth: '600px', 
+          margin: '0 auto', 
+          padding: '2rem', 
+          background: 'white', 
+          borderRadius: '1rem',
+          boxShadow: '0 4px 6px rgba(0,0,0,0.1)' 
+        }}>
+          <h2 style={{ color: 'green', marginBottom: '1rem' }}>Submission Successful!</h2>
+          <pre style={{ 
+            background: '#f8f8f8', 
+            padding: '1rem', 
+            borderRadius: '0.5rem',
+            overflowX: 'auto' 
+          }}>
+            {JSON.stringify(submittedData, null, 2)}
+          </pre>
+          <button 
+            onClick={() => setSubmittedData(null)}
+            style={{
+              marginTop: '1rem',
+              padding: '0.75rem 1.5rem',
+              background: '#6366f1',
+              color: 'white',
+              border: 'none',
+              borderRadius: '0.5rem',
+              cursor: 'pointer'
+            }}
+          >
+            Reset
+          </button>
+        </div>
+      )}
+    </div>
   )
 }
 
