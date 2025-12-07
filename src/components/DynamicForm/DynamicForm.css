@@ -16,7 +16,8 @@
 
 .df-container {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  /* max-width: 600px; */
+  max-width: 600px;
+  width:100%;
   margin: 4rem auto;
   padding: 2rem;
   background: var(--df-surface);
@@ -72,6 +73,8 @@
 }
 
 .df-question-title {
+  display: flex;
+  align-items:flex-start;
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -85,8 +88,13 @@
 
 /* Text Input */
 .df-text-input {
-  /* width: 100%; */
+  /* width: ; */
+  display: flex;
+  /* max-width: 580px; */
+  width: 100%; 
+  box-sizing: border-box;
   padding: 1rem;
+  /* margin: 2rem auto; */
   font-size: 1rem;
   border: 2px solid var(--df-border);
   border-radius: 0.75rem;
