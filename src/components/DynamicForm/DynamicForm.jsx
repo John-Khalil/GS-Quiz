@@ -30,7 +30,12 @@ const DynamicForm = ({ questions, onSubmit }) => {
     }
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     // Format the output as requested:
     // [ { question, id, answer: (string or object) } ]
     const formattedOutput = questions.map(q => ({
@@ -40,6 +45,11 @@ const DynamicForm = ({ questions, onSubmit }) => {
     }));
     
     onSubmit(formattedOutput);
+    
+    // Simple debounce/throttle to prevent double submissions
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 1000);
   };
 
   const isLastStep = currentStep === totalSteps - 1;
@@ -69,9 +79,9 @@ const DynamicForm = ({ questions, onSubmit }) => {
           <button 
             className="df-btn df-btn-primary" 
             onClick={handleSubmit}
-            disabled={!hasAnswer}
+            disabled={!hasAnswer || isSubmitting}
           >
-            Submit
+            {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>
         ) : (
           <button 
