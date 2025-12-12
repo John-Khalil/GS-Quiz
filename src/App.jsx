@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import DynamicForm from './components/DynamicForm/DynamicForm'
 import './App.css'
 import * as XLSX from "xlsx";
+import SVGComponent from './SVGComponent.jsx';
 
 export const exportAllSubmissionsToExcel = () => {
   const submissions = JSON.parse(localStorage.getItem("allSubmissions") || "[]");
@@ -60,44 +61,57 @@ const dummyQuestions = [
   {
     id: 'q1',
     question: 'What is your name?',
-    correctAnswer: 'John',
-    score: 1
-    // No mcq attribute -> Text input
+    correctAnswer: 'No correct answer',
+    score: 0
   },
   {
     id: 'q2',
-    question: 'Which of the following is a Javascript framework?',
-    mcq: ['Laravel', 'React', 'Django', 'Flask'],
-    correctAnswer: 'React',
-    score: 2
+    question: 'Your Age',
+    mcq: ['20 to 30', '31 to 40', '40+'],
+    correctAnswer: 'No correct answer',
+    score: 0
   },
   {
     id: 'q3',
-    question: 'Describe your coding experience.',
-    correctAnswer: 'High',
-    score: 1
-    // No mcq attribute -> Text input
+    question: 'Gender',
+    mcq: ['Male', 'Female'],
+    correctAnswer: 'No correct answer',
+    score: 0
   },
   {
     id: 'q4',
-    question: 'What is your preferred state management tool?',
-    mcq: ['Redux', 'Zustand', 'Context API', 'Recoil'],
-    correctAnswer: 'Redux',
-    score: 2
+    question: 'Where is Giza Systems headquarters located?',
+    mcq: ['Cairo, Egypt', 'Riyadh, KSA', 'Jeddah, KSA', 'Nairobi, Kenya'],
+    correctAnswer: 'Cairo, Egypt',
+    score: 1
   },
   {
     id: 'q5',
-    question: 'question 5',
-    mcq: ['Redux', 'Zustand', 'Context API', 'Recoil'],
-    correctAnswer: 'Zustand',
-    score: 22
+    question: 'How many years of experience does Giza Systems have?',
+    mcq: ['25', '51', '15'],
+    correctAnswer: '51',
+    score: 1
   },
   {
     id: 'q6',
-    question: 'question 6',
-    mcq: ['Redux', 'Zustand', 'Context API', 'Recoil'],
-    correctAnswer: 'Context API',
-    score: 2
+    question: 'What industry does Giza Systems operate in?',
+    mcq: ['Oil & Gas', 'Telecom', 'Financial Services', 'Smart Mobility', 'Health Care', 'All of the above'],
+    correctAnswer: 'All of the above',
+    score: 1
+  },
+  {
+    id: 'q7',
+    question: 'In how many countries does Giza Systems operate?',
+    mcq: ['4', '7', '10', '25'],
+    correctAnswer: '25',
+    score: 1
+  },
+  {
+    id: 'q8',
+    question: 'Which company acquired Giza Systems in 2022?',
+    mcq: ['STC', 'Solutions by STC', 'Zain KSA'],
+    correctAnswer: 'Solutions by STC',
+    score: 1
   }
 ];
 
@@ -194,10 +208,15 @@ function App() {
           display: 'flex',
           alignItems: 'center',
           gap: '0.5rem'
-        }}>
+        }}
+        onClick={()=>{
+          exportAllSubmissionsToExcel();
+        }}
+        >
           {/* Logo Placeholder */}
-          <img src="/giza-systems-new-logo.png" alt="Giza Systems Logo" style={{ height: '96px'}} />
+          {/* <img src="giza-systems-new-logo.png" alt="Giza Systems Logo" style={{ height: '96px'}} /> */}
           {/* <span>GS Quiz</span> */}
+          <SVGComponent/>
         </div>
       </div>
       
